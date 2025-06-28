@@ -3,9 +3,417 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Creative Portfolio | Video Editor & Motion Designer</title>
+    <link rel="stylesheet" href="style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Allura:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Birthstone:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body>
-    hey
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="portfolio-text">Portfolio <span class="name-text">⸳ Kaif Hussain</span></span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#work" class="nav-link">Work</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Contact</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <div class="gradient-overlay"></div>
+            <div class="floating-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+                <div class="shape shape-4"></div>
+            </div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    <span class="title-line">Creative</span>
+                    <span class="title-line">Video Editor</span>
+                    <span class="title-line">& Motion Designer</span>
+                </h1>
+                <p class="hero-subtitle">Bringing stories to life through visual storytelling and dynamic motion graphics</p>
+                <div class="hero-buttons">
+                    <a href="#work" class="btn btn-primary">View My Work</a>
+                    <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="image-container">
+                    <img src="Assets/me.png" alt="Portfolio Photo" class="profile-image">
+                    <div class="image-glow"></div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- Work Section -->
+    <section id="work" class="work">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">My Work</h2>
+                <div class="title-underline"></div>
+            </div>
+            <div class="work-filter">
+                <button class="filter-btn active" data-filter="general">General</button>
+                <button class="filter-btn" data-filter="dtc">DTC</button>
+                <button class="filter-btn" data-filter="abstract">Abstract</button>
+            </div>
+            <div class="work-grid">
+                <div class="work-item" data-category="general">
+                    <div class="work-image">
+                        <div class="video-container">
+                            <iframe 
+                                src="https://www.youtube.com/embed/9RPNU0uJl0c?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1&showinfo=0&iv_load_policy=3&loop=1&playlist=9RPNU0uJl0c" 
+                                title="Cinematic Short Film"
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="work-item" data-category="general">
+                    <div class="work-image">
+                        <div class="video-container">
+                            <iframe 
+                                src="https://www.youtube.com/embed/v1lPLnc6tIc?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1&showinfo=0&iv_load_policy=3&loop=1&playlist=v1lPLnc6tIc" 
+                                title="Motion Graphics Showcase"
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="work-item" data-category="general">
+                    <div class="work-image">
+                        <div class="video-container">
+                            <iframe 
+                            src="https://www.youtube.com/embed/_Be7wJmCpgE?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1&showinfo=0&iv_load_policy=3&loop=1&playlist=_Be7wJmCpgE"
+
+                                title="New Video Project"
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="work-item" data-category="general">
+                    <div class="work-image">
+                        <div class="video-container">
+                            <iframe 
+                                src="https://www.youtube.com/embed/Iln2pWFpRsM?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1&showinfo=0&iv_load_policy=3&loop=1&playlist=Iln2pWFpRsM" 
+                                title="New Video Project"
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="work-item" data-category="general">
+                    <div class="work-image">
+                        <div class="video-container">
+                            <iframe 
+                                src="https://www.youtube.com/embed/Iln2pWFpRsM?autoplay=1&mute=1&controls=1&rel=0&modestbranding=1&showinfo=0&iv_load_policy=3&loop=1&playlist=Iln2pWFpRsM" 
+                                title="New Video Project"
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="work-item" data-category="dtc">
+                    <div class="work-image">
+                        <div class="work-overlay">
+                            <div class="work-info">
+                                <h3>DTC Project 1</h3>
+                                <p>Direct-to-consumer video content</p>
+                                <div class="work-tags">
+                                    <span>Premiere Pro</span>
+                                    <span>Marketing</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="placeholder-image"></div>
+                    </div>
+                </div>
+                <div class="work-item" data-category="dtc">
+                    <div class="work-image">
+                        <div class="work-overlay">
+                            <div class="work-info">
+                                <h3>DTC Project 2</h3>
+                                <p>Brand storytelling and engagement</p>
+                                <div class="work-tags">
+                                    <span>After Effects</span>
+                                    <span>Branding</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="placeholder-image"></div>
+                    </div>
+                </div>
+                <div class="work-item" data-category="abstract">
+                    <div class="work-image">
+                        <div class="work-overlay">
+                            <div class="work-info">
+                                <h3>Abstract Motion</h3>
+                                <p>Creative visual experimentation</p>
+                                <div class="work-tags">
+                                    <span>After Effects</span>
+                                    <span>Visual Effects</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="placeholder-image"></div>
+                    </div>
+                </div>
+                <div class="work-item" data-category="abstract">
+                    <div class="work-image">
+                        <div class="work-overlay">
+                            <div class="work-info">
+                                <h3>Abstract Design</h3>
+                                <p>Experimental visual concepts</p>
+                                <div class="work-tags">
+                                    <span>Motion Graphics</span>
+                                    <span>Creative</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="placeholder-image"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">About Me</h2>
+                <div class="title-underline"></div>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p class="about-description">
+                        I'm a passionate video editor and motion designer with over 5 years of experience creating compelling visual content. 
+                        My expertise spans from cinematic video editing to dynamic motion graphics, always pushing the boundaries of creativity.
+                    </p>
+                    <p class="about-description">
+                        I specialize in storytelling through visual media, combining technical precision with artistic vision to deliver 
+                        projects that captivate and inspire audiences. From short-form content for social media to cinematic productions, 
+                        I bring stories to life through innovative editing techniques and stunning motion graphics.
+                    </p>
+                    <div class="skills">
+                        <h3>Skills & Expertise</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Adobe Premiere Pro</span>
+                            <span class="skill-tag">After Effects</span>
+                            <span class="skill-tag">DaVinci Resolve</span>
+                            <span class="skill-tag">Motion Graphics</span>
+                            <span class="skill-tag">Color Grading</span>
+                            <span class="skill-tag">Visual Effects</span>
+                            <span class="skill-tag">Cinematography</span>
+                            <span class="skill-tag">Storytelling</span>
+                            <span class="skill-tag">Short-form Content</span>
+                            <span class="skill-tag">Social Media</span>
+                            <span class="skill-tag">YouTube Shorts</span>
+                            <span class="skill-tag">TikTok</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="50">0</div>
+                        <div class="stat-label">Projects Completed</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="5">0</div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-target="100">0</div>
+                        <div class="stat-label">Happy Clients</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Testimonials Section -->
+            <div class="testimonials-section">
+                <h3 class="testimonials-title">What Clients Say</h3>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="quote-icon">
+                                <i class="fas fa-quote-left"></i>
+                            </div>
+                            <p class="testimonial-text">
+                                "What truly sets Kaif apart is his
+                                ability to understand and
+                                execute client needs with
+                                precision. He worked on
+                                numerous client projects during
+                                his time with us, and I
+                                consistently received positive
+                                feedback about his work. Our
+                                clients were thoroughly
+                                impressed with his ability to
+                                transform their ideas into
+                                compelling visual stories."
+                            </p>
+                            <div class="testimonial-author">
+                                <div class="company-logo">
+                                    <img src="Assets/saodigital.webp" alt="Sao Digital Logo" class="logo-image">
+                                </div>
+                                <div class="author-info">
+                                    <h4 class="author-name">Bav Kapadia</h4>
+                                    <p class="author-title">Founder of Sao Digital</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="quote-icon">
+                                <i class="fas fa-quote-left"></i>
+                            </div>
+                            <p class="testimonial-text">
+                               "Kaif was a valuable part of our
+                               editing team over several
+                               projects. He was reliable, easy
+                               to communicate with, and
+                               always delivered work on
+                               time. What we appreciated
+                               most was his ability to
+                               understand the tone and goal
+                               of each video. He took feedback well
+                               and always aimed to improve
+                               with each round. We'd be
+                               happy to work with him again."
+                            </p>
+                            <div class="testimonial-author">
+                                <div class="company-logo">
+                                    <img src="Assets/threedotsnaratives.jpg" alt="Three Dots Narratives Logo" class="logo-image">
+                                </div>
+                                <div class="author-info">
+                                    <h4 class="author-name">Nilanjan Rauth</h4>
+                                    <p class="author-title">Co-founder of Three Dots Narratives</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Get In Touch</h2>
+                <div class="title-underline"></div>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Let's Work Together</h3>
+                    <p>Ready to bring your vision to life? I'm here to turn your ideas into reality.</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>Email</h4>
+                                <p>kaifussain@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-whatsapp"></i>
+                            <div>
+                                <h4>WhatsApp</h4>
+                                <p>Message me on WhatsApp</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-telegram"></i>
+                            <div>
+                                <h4>Telegram</h4>
+                                <p>Message me on Telegram</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h4>Location</h4>
+                                <p>Kolkata, West Bengal, India</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/kaifxed/" target="_blank" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.instagram.com/kaifxed/" target="_blank" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="https://x.com/kaifxed" target="_blank" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.youtube.com/@kaifxed" target="_blank" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3 class="form-title">Send me an email</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" required>
+                            <label for="name">Your Name</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="contact" name="contact" required>
+                            <label for="contact">Contact Info</label>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                            <label for="message">Your Message</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
 </body>
 </html>
