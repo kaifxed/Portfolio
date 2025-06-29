@@ -349,8 +349,10 @@ function initStatsCounter() {
             if (current >= target) {
                 current = target;
                 clearInterval(timer);
+                el.textContent = Math.floor(current) + '+';
+            } else {
+                el.textContent = Math.floor(current);
             }
-            el.textContent = Math.floor(current);
         }, 16);
     };
     const statsObserver = new IntersectionObserver(entries => {
