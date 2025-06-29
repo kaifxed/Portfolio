@@ -18,6 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Clear unnecessary localStorage data
     cleanupLocalStorage();
     
+    // Check if mobile device for performance optimizations
+    const isMobile = window.innerWidth <= 768;
+    
     // Critical operations first
     initLoadingScreen();
     initNavigation();
@@ -26,10 +29,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Defer non-critical operations
     requestIdleCallback(() => {
         ensureContentVisibility();
-        initScrollAnimations();
+        if (!isMobile) {
+            initScrollAnimations();
+            initParallaxEffects();
+        }
         initContactForm();
         initStatsCounter();
-        initParallaxEffects();
         initContactCopy();
         
         // Add loading animation to images
@@ -140,22 +145,18 @@ function initNavigation() {
 
 function initScrollAnimations() {
     const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => entry.isIntersecting && entry.target.classList.add('visible'));
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
     }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    
+    // Only observe elements that need animation
     document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(el => {
         el.style.opacity = '1';
         el.style.transform = 'none';
         observer.observe(el);
-    });
-    document.querySelectorAll('section').forEach((section, idx) => {
-        if (idx > 0) {
-            section.querySelectorAll('.about-content, .work-grid, .contact-content').forEach((el, elIdx) => {
-                el.style.opacity = '1';
-                el.style.visibility = 'visible';
-                el.style.transform = 'none';
-                el.classList.add(elIdx % 2 === 0 ? 'slide-in-left' : 'slide-in-right');
-            });
-        }
     });
 }
 
@@ -208,10 +209,15 @@ function initWorkFilter() {
                     if (videoContainer && !videoContainer.querySelector('iframe') && iframeData.has(item)) {
                         const data = iframeData.get(item);
                         const newIframe = document.createElement('iframe');
-                        newIframe.src = data.src;
+                        
+                        // Add quality and fullscreen parameters
+                        const url = new URL(data.src);
+                        url.searchParams.set('vq', 'hd720'); // Set quality to 720p
+                        newIframe.src = url.toString();
+                        
                         newIframe.title = data.title;
-                        newIframe.allow = data.allow;
-                        newIframe.allowfullscreen = data.allowfullscreen;
+                        newIframe.allow = data.allow + '; web-share; fullscreen';
+                        newIframe.allowfullscreen = true;
                         newIframe.frameborder = '0';
                         newIframe.setAttribute('loading', 'lazy');
                         newIframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation');
@@ -317,25 +323,29 @@ function initParallaxEffects() {
     const shapes = document.querySelectorAll('.shape');
     const heroBackground = document.querySelector('.hero-background');
     
-    // Throttle scroll events for better performance
+    // Simplified parallax with reduced frequency
+    let lastScrollY = window.pageYOffset;
     let ticking = false;
+    
+    function updateParallax() {
+        const scrolled = window.pageYOffset;
+        const rate = scrolled * -0.3; // Reduced intensity
+        
+        shapes.forEach((shape, i) => {
+            const speed = 0.3 + i * 0.05; // Reduced speed
+            shape.style.transform = `translateY(${scrolled * speed}px)`;
+        });
+        
+        if (heroBackground) {
+            heroBackground.style.transform = `translateY(${rate}px)`;
+        }
+        
+        ticking = false;
+    }
+    
     window.addEventListener('scroll', () => {
         if (!ticking) {
-            requestAnimationFrame(() => {
-                const scrolled = window.pageYOffset;
-                const rate = scrolled * -0.5;
-                
-                shapes.forEach((shape, i) => {
-                    const speed = 0.5 + i * 0.1;
-                    shape.style.transform = `translateY(${scrolled * speed}px) rotate(${scrolled * 0.1}deg)`;
-                });
-                
-                if (heroBackground) {
-                    heroBackground.style.transform = `translateY(${rate}px)`;
-                }
-                
-                ticking = false;
-            });
+            requestAnimationFrame(updateParallax);
             ticking = true;
         }
     });
@@ -367,26 +377,6 @@ function revealOnScroll() {
     });
 }
 window.addEventListener('scroll', revealOnScroll);
-
-// Particle system for background
-function createParticles() {
-    const particleContainer = document.createElement('div');
-    particleContainer.className = 'particle-container';
-    particleContainer.style.cssText = `position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: hidden;`;
-    document.body.appendChild(particleContainer);
-    
-    // Reduced particle count for better performance
-    for (let i = 0; i < 15; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.cssText = `position: absolute; width: 2px; height: 2px; background: rgba(255,255,255,0.3); border-radius: 50%; animation: float-particle ${Math.random() * 15 + 15}s linear infinite; left: ${Math.random() * 100}%; top: ${Math.random() * 100}%;`;
-        particleContainer.appendChild(particle);
-    }
-}
-const style = document.createElement('style');
-style.textContent = `@keyframes float-particle {0%{transform:translateY(100vh) rotate(0deg);opacity:0;}10%{opacity:1;}90%{opacity:1;}100%{transform:translateY(-100px) rotate(360deg);opacity:0;}}.reveal{opacity:0;transform:translateY(50px);transition:all 0.8s ease;}.reveal.active{opacity:1;transform:translateY(0);}`;
-document.head.appendChild(style);
-createParticles();
 
 // Performance optimization for scroll
 let ticking = false;
