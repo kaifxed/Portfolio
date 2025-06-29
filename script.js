@@ -15,6 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
     window.scrollTo(0, 0);
     
+    // Clear unnecessary localStorage data
+    cleanupLocalStorage();
+    
     // Critical operations first
     initLoadingScreen();
     initNavigation();
@@ -39,6 +42,37 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('section').forEach(section => section.classList.add('reveal'));
     });
 });
+
+// Periodic cleanup to prevent storage accumulation
+setInterval(() => {
+    cleanupLocalStorage();
+}, 300000); // Clean every 5 minutes
+
+// Cleanup on page unload
+window.addEventListener('beforeunload', () => {
+    cleanupLocalStorage();
+});
+
+function cleanupLocalStorage() {
+    try {
+        // Clear YouTube-related cache data
+        const keysToRemove = [];
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key && (key.includes('youtube') || key.includes('yt') || key.includes('google') || key.includes('gstatic'))) {
+                keysToRemove.push(key);
+            }
+        }
+        keysToRemove.forEach(key => localStorage.removeItem(key));
+        
+        // Clear any old session data
+        if (localStorage.getItem('oldSessionData')) {
+            localStorage.removeItem('oldSessionData');
+        }
+    } catch (e) {
+        console.log('LocalStorage cleanup failed:', e);
+    }
+}
 
 function ensureContentVisibility() {
     // Cache DOM queries
@@ -129,7 +163,7 @@ function initWorkFilter() {
     const filterBtns = document.querySelectorAll('.filter-btn');
     const workItems = document.querySelectorAll('.work-item');
     
-    // Store original iframe data for lazy loading
+    // Store iframe data for lazy loading
     const iframeData = new Map();
     workItems.forEach(item => {
         const iframe = item.querySelector('iframe');
@@ -150,13 +184,14 @@ function initWorkFilter() {
         const activeBtn = document.querySelector(`[data-filter="${filter}"]`);
         if (activeBtn) activeBtn.classList.add('active');
         
-        // Mute all videos before switching categories
+        // Pause all currently playing videos
         document.querySelectorAll('.work-item iframe').forEach(iframe => {
             if (iframe.src.includes('youtube.com')) {
-                // Force mute by updating the URL with mute parameter
-                const url = new URL(iframe.src);
-                url.searchParams.set('mute', '1');
-                iframe.src = url.toString();
+                try {
+                    const url = new URL(iframe.src);
+                    url.searchParams.set('autoplay', '0');
+                    iframe.src = url.toString();
+                } catch (e) {}
             }
         });
         
@@ -168,50 +203,38 @@ function initWorkFilter() {
                     item.style.opacity = '1';
                     item.style.transform = 'translateY(0)';
                     
-                    // Lazy load iframe only when category is selected
+                    // Load iframe only when category is selected
                     const videoContainer = item.querySelector('.video-container');
                     if (videoContainer && !videoContainer.querySelector('iframe') && iframeData.has(item)) {
                         const data = iframeData.get(item);
                         const newIframe = document.createElement('iframe');
-                        
-                        // Add autoplay to the URL
-                        const url = new URL(data.src);
-                        url.searchParams.set('autoplay', '1');
-                        url.searchParams.set('volume', '60');
-                        url.searchParams.set('enablejsapi', '1');
-                        newIframe.src = url.toString();
-                        
+                        newIframe.src = data.src;
                         newIframe.title = data.title;
                         newIframe.allow = data.allow;
                         newIframe.allowfullscreen = data.allowfullscreen;
                         newIframe.frameborder = '0';
                         newIframe.setAttribute('loading', 'lazy');
+                        newIframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation');
                         videoContainer.appendChild(newIframe);
                         
                         // Add loading effect
                         videoContainer.style.opacity = '0.8';
                         newIframe.addEventListener('load', () => {
                             videoContainer.style.opacity = '1';
-                            // Try to set volume after load
-                            try {
-                                const player = new YT.Player(newIframe, {
-                                    events: {
-                                        'onReady': function(event) {
-                                            event.target.setVolume(60);
-                                        }
-                                    }
-                                });
-                            } catch (e) {
-                                // Fallback if YouTube API is not available
-                                console.log('YouTube API not available for volume control');
-                            }
                         });
                     }
-                }, 100);
+                }, 50);
             } else {
                 item.style.opacity = '0';
                 item.style.transform = 'translateY(20px)';
-                setTimeout(() => { item.style.display = 'none'; }, 300);
+                setTimeout(() => { 
+                    item.style.display = 'none';
+                    // Remove iframe when category is hidden to save memory
+                    const iframe = item.querySelector('iframe');
+                    if (iframe) {
+                        iframe.remove();
+                    }
+                }, 200);
             }
         });
     }
@@ -219,15 +242,10 @@ function initWorkFilter() {
     applyFilter('general');
     filterBtns.forEach(btn => btn.addEventListener('click', () => applyFilter(btn.getAttribute('data-filter'))));
     
-    // Optimize image loading
+    // Simple image loading optimization
     document.querySelectorAll('img').forEach(img => {
         img.style.opacity = '1';
         img.style.visibility = 'visible';
-        img.addEventListener('error', () => console.log('Image failed to load:', img.src));
-        img.addEventListener('load', () => {
-            img.style.opacity = '1';
-            img.style.visibility = 'visible';
-        });
     });
 }
 
