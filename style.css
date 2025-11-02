@@ -188,7 +188,7 @@ body {
 .title-line { display: block; }
 
 .hero-subtitle {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: var(--color-gray);
     margin-bottom: 2rem;
     opacity: 0;
@@ -402,7 +402,7 @@ section {
 }
 .work-item .work-image { height: auto; min-height: 400px; }
 .work-item:hover .video-container { transform: none; }
-.work-item[data-category*="general"] .work-overlay { display: none !important; }
+.work-item[data-category*="creatives"] .work-overlay { display: none !important; }
 .video-thumbnail, .video-placeholder, .thumbnail-overlay { display: none; }
 .work-link { display: none; }
 

@@ -290,7 +290,7 @@ function initWorkFilter() {
         });
     }
     
-    applyFilter('general');
+    applyFilter('creatives');
     filterBtns.forEach(btn => btn.addEventListener('click', () => applyFilter(btn.getAttribute('data-filter'))));
     
     // Simple image loading optimization
