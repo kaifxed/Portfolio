@@ -90,13 +90,17 @@
                 <div class="title-underline"></div>
             </div>
             <div class="work-filter">
-                <button class="filter-btn active" data-filter="creatives" title="Direct Response Video Ads">Creatives</button>
+                <button class="filter-btn active" data-filter="creatives" title="Direct Response Video & Static Ads">Creatives</button>
                 <button class="filter-btn" data-filter="organic" title="Organic Social Media Videos">Organic</button>
                 <button class="filter-btn" data-filter="abstract" title="Personal / Experimental Projects">Abstract</button>
             </div>
+            <div class="creatives-sub-filter" id="creativesSubFilter" style="display: none;">
+                <button class="sub-filter-btn active" data-sub-filter="creatives-videos">Videos</button>
+                <button class="sub-filter-btn" data-sub-filter="creatives-statics">Statics</button>
+            </div>
             <div class="work-grid">      
                 
-                <div class="work-item" data-category="creatives">
+                <div class="work-item" data-category="creatives" data-sub-category="creatives-videos">
                     <div class="work-image">
                         <div class="video-container">
                             <iframe
@@ -108,7 +112,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="work-item" data-category="creatives">
+                <div class="work-item" data-category="creatives" data-sub-category="creatives-videos">
                     <div class="work-image">
                         <div class="video-container">
                             <iframe
@@ -120,7 +124,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="work-item" data-category="creatives">
+                <div class="work-item" data-category="creatives" data-sub-category="creatives-videos">
                     <div class="work-image">
                         <div class="video-container">
                             <iframe
@@ -132,7 +136,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="work-item" data-category="creatives">
+                <div class="work-item" data-category="creatives" data-sub-category="creatives-videos">
                     <div class="work-image">
                         <div class="video-container">
                             <iframe
@@ -144,7 +148,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="work-item" data-category="creatives">
+                <div class="work-item" data-category="creatives" data-sub-category="creatives-videos">
                     <div class="work-image">
                         <div class="video-container">
                             <iframe
@@ -156,7 +160,7 @@
                         </div>
                     </div>
                 </div>   
-                <div class="work-item" data-category="creatives">
+                <div class="work-item" data-category="creatives" data-sub-category="creatives-videos">
                     <div class="work-image">
                         <div class="video-container">
                             <iframe
@@ -166,6 +170,37 @@
                                 allowfullscreen>
                             </iframe>
                         </div>
+                    </div>
+                </div>
+                
+                <div class="work-item" data-category="creatives" data-sub-category="creatives-statics">
+                    <div class="static-image-container">
+                        <img src="Assets/Statics/s1.png" alt="Static Creative" class="static-image">
+                    </div>
+                </div>
+                <div class="work-item" data-category="creatives" data-sub-category="creatives-statics">
+                    <div class="static-image-container">
+                        <img src="Assets/Statics/s2.png" alt="Static Creative" class="static-image">
+                    </div>
+                </div>
+                <div class="work-item" data-category="creatives" data-sub-category="creatives-statics">
+                    <div class="static-image-container">
+                        <img src="Assets/Statics/s3.png" alt="Static Creative" class="static-image">
+                    </div>
+                </div>
+                <div class="work-item" data-category="creatives" data-sub-category="creatives-statics">
+                    <div class="static-image-container">
+                        <img src="Assets/Statics/s4.png" alt="Static Creative" class="static-image">
+                    </div>
+                </div>
+                <div class="work-item" data-category="creatives" data-sub-category="creatives-statics">
+                    <div class="static-image-container">
+                        <img src="Assets/Statics/s5.png" alt="Static Creative" class="static-image">
+                    </div>
+                </div>
+                <div class="work-item" data-category="creatives" data-sub-category="creatives-statics">
+                    <div class="static-image-container">
+                        <img src="Assets/Statics/s6.png" alt="Static Creative" class="static-image">
                     </div>
                 </div>
 
@@ -354,21 +389,22 @@
                             <span class="skill-tag">Adobe After Effects</span>
                             <span class="skill-tag">Adobe Photoshop</span>
                             <span class="skill-tag">Adobe Illustrator</span>
+                            <span class="skill-tag">Video Ads</span>
+                            <span class="skill-tag">Static Ads</span>
+                            <span class="skill-tag">Educational Content</span>
+                            <span class="skill-tag">Short-form Content</span>
                             <span class="skill-tag">Motion Graphics</span>
+                            <span class="skill-tag">Color Grading</span>
                             <span class="skill-tag">Sound Design</span>
                             <span class="skill-tag">Storytelling</span>
-                            <span class="skill-tag">Color Grading</span>
                             <span class="skill-tag">Visual Effects</span>
-                            <span class="skill-tag">Educational Content</span>
-                            <span class="skill-tag">Video Ads</span>
-                            <span class="skill-tag">Short-form Content</span>
-                            <span class="skill-tag">Social Media</span>
+                            <span class="skill-tag">Generative AI</span>
                         </div>
                     </div>
                 </div>
                 <div class="about-stats">
                     <div class="stat-item">
-                        <div class="stat-number" data-target="400">0</div>
+                        <div class="stat-number" data-target="500">0</div>
                         <div class="stat-label">Projects Completed</div>
                     </div>
                     <div class="stat-item">
@@ -384,8 +420,27 @@
             
             <!-- Testimonials Section -->
             <div class="testimonials-section">
-                <h3 class="testimonials-title">What Clients Say</h3>
+                <h3 class="testimonials-title">Feedback</h3>
                 <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="quote-icon">
+                                <i class="fas fa-quote-left"></i>
+                            </div>
+                            <p class="testimonial-text">
+                                "Your work and approach are very strong and appreciated. You communicate clearly and show solid DTC and ad sense, with consistent, high-quality creative output. Your hooks, pacing, and design sense are well thought out, and your footage selection is strong. You bring great creativity to your work and show care for the brand by thinking beyond just editing. It’s great to see you proactively looking for ways to improve ads and overall performance. Your attitude, effort, and creative mindset are a real asset to the team."
+                            </p>
+                            <div class="testimonial-author">
+                                <div class="company-logo">
+                                    <img src="Assets/creatunity-logo.png" alt="Creatunity Logo" class="logo-image">
+                                </div>
+                                <div class="author-info">
+                                    <h4 class="author-name">Marin Loncar</h4>
+                                    <p class="author-title">Senior Video Team Manager at Creatunity</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="testimonial-card">
                         <div class="testimonial-content">
                             <div class="quote-icon">
@@ -461,8 +516,8 @@
             </div>
             <div class="contact-content">
                 <div class="contact-info">
-                    <h3>Let's Work Together</h3>
-                    <p>Ready to bring your vision to life? I'm here to turn your ideas into reality.</p>
+                    <h3>Let's Work</h3>
+                    <p>Feel free to reach out for work or collaborations.</p>
                     <div class="contact-details">
                         <div class="contact-item">
                             <i class="fas fa-envelope"></i>

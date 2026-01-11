@@ -163,6 +163,8 @@ function initScrollAnimations() {
 function initWorkFilter() {
     const filterBtns = document.querySelectorAll('.filter-btn');
     const workItems = document.querySelectorAll('.work-item');
+    const creativesSubFilter = document.getElementById('creativesSubFilter');
+    const subFilterBtns = document.querySelectorAll('.sub-filter-btn');
     
     // Check if mobile device for autoplay control
     const isMobile = window.innerWidth <= 768;
@@ -183,14 +185,142 @@ function initWorkFilter() {
         }
     });
     
+    function applySubFilter(subFilter) {
+        subFilterBtns.forEach(b => b.classList.remove('active'));
+        const activeSubBtn = document.querySelector(`[data-sub-filter="${subFilter}"]`);
+        if (activeSubBtn) activeSubBtn.classList.add('active');
+        
+        workItems.forEach(item => {
+            const category = item.getAttribute('data-category');
+            const subCategory = item.getAttribute('data-sub-category');
+            
+            if (category === 'creatives') {
+                if (subCategory === subFilter) {
+                    item.style.display = 'block';
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateY(0)';
+                        
+                        // Load iframe only when category is selected
+                        const videoContainer = item.querySelector('.video-container');
+                        if (videoContainer && !videoContainer.querySelector('iframe') && iframeData.has(item)) {
+                            const data = iframeData.get(item);
+                            const newIframe = document.createElement('iframe');
+                            
+                            // Create clean URL with proper parameters
+                            const url = new URL(data.src);
+                            
+                            // Clear any existing parameters that might cause issues
+                            url.searchParams.delete('autoplay');
+                            url.searchParams.delete('vq');
+                            url.searchParams.delete('volume');
+                            url.searchParams.delete('enablejsapi');
+                            url.searchParams.delete('origin');
+                            
+                            // Set quality to 720p
+                            url.searchParams.set('vq', 'hd720');
+                            
+                            // Enable YouTube Player API for volume control
+                            url.searchParams.set('enablejsapi', '1');
+                            url.searchParams.set('origin', window.location.origin);
+                            
+                            // Only autoplay on non-mobile devices
+                            if (!isMobile) {
+                                url.searchParams.set('autoplay', '1');
+                            } else {
+                                url.searchParams.set('autoplay', '0');
+                            }
+                            
+                            newIframe.src = url.toString();
+                            
+                            newIframe.title = data.title;
+                            newIframe.allow = data.allow + '; web-share; fullscreen';
+                            newIframe.allowfullscreen = true;
+                            newIframe.frameborder = '0';
+                            newIframe.setAttribute('loading', 'lazy');
+                            newIframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation');
+                            videoContainer.appendChild(newIframe);
+                            
+                            // Add loading effect
+                            videoContainer.style.opacity = '0.8';
+                            newIframe.addEventListener('load', () => {
+                                videoContainer.style.opacity = '1';
+                                
+                                // Set up volume control for unmuted videos
+                                const videoId = url.searchParams.get('v') || url.pathname.split('/').pop();
+                                if (videoId) {
+                                    // Create a unique ID for the iframe
+                                    const iframeId = `youtube-${videoId}-${Date.now()}`;
+                                    newIframe.id = iframeId;
+                                    
+                                    // Function to set volume to 60%
+                                    const setVolumeTo60 = () => {
+                                        try {
+                                            if (newIframe.contentWindow && newIframe.contentWindow.postMessage) {
+                                                newIframe.contentWindow.postMessage(JSON.stringify({
+                                                    event: 'command',
+                                                    func: 'setVolume',
+                                                    args: [60]
+                                                }), '*');
+                                            }
+                                        } catch (e) {
+                                            // Ignore errors
+                                        }
+                                    };
+                                    
+                                    // Set volume after a short delay to ensure player is ready
+                                    setTimeout(setVolumeTo60, 1000);
+                                    
+                                    // Also set volume periodically to catch unmute events
+                                    const volumeInterval = setInterval(setVolumeTo60, 3000);
+                                    
+                                    // Clear interval after 1 minute to avoid performance issues
+                                    setTimeout(() => clearInterval(volumeInterval), 60000);
+                                }
+                            });
+                        }
+                    }, 50);
+                } else {
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateY(20px)';
+                    setTimeout(() => { 
+                        item.style.display = 'none';
+                        // Remove iframe when category is hidden to save memory
+                        const iframe = item.querySelector('iframe');
+                        if (iframe) {
+                            iframe.remove();
+                        }
+                    }, 200);
+                }
+            }
+        });
+    }
+    
     function applyFilter(filter) {
         filterBtns.forEach(b => b.classList.remove('active'));
         const activeBtn = document.querySelector(`[data-filter="${filter}"]`);
         if (activeBtn) activeBtn.classList.add('active');
         
+        // Show/hide sub-filter for creatives
+        if (filter === 'creatives') {
+            creativesSubFilter.style.display = 'flex';
+            // Reset sub-filter to videos
+            applySubFilter('creatives-videos');
+        } else {
+            creativesSubFilter.style.display = 'none';
+        }
+        
         workItems.forEach(item => {
             const category = item.getAttribute('data-category');
+            const subCategory = item.getAttribute('data-sub-category');
+            
             if (category === filter) {
+                // For creatives, sub-filter will handle visibility
+                if (filter === 'creatives') {
+                    // Visibility handled by sub-filter
+                    return;
+                }
+                
                 item.style.display = 'block';
                 setTimeout(() => {
                     item.style.opacity = '1';
@@ -292,6 +422,7 @@ function initWorkFilter() {
     
     applyFilter('creatives');
     filterBtns.forEach(btn => btn.addEventListener('click', () => applyFilter(btn.getAttribute('data-filter'))));
+    subFilterBtns.forEach(btn => btn.addEventListener('click', () => applySubFilter(btn.getAttribute('data-sub-filter'))));
     
     // Simple image loading optimization
     document.querySelectorAll('img').forEach(img => {
