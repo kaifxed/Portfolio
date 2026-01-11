@@ -341,11 +341,29 @@ section {
     color: var(--color-white);
     border-radius: 25px;
     cursor: pointer;
-    transition: opacity 0.3s, transform 0.3s, color 0.3s, background 0.3s;
+    transition: opacity 0.3s, transform 0.3s, color 0.3s;
     font-weight: 500;
+    position: relative;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.filter-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient-main);
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: -1;
+    border-radius: 25px;
+}
+.filter-btn.active::before, .filter-btn:hover::before {
+    opacity: 1;
 }
 .filter-btn.active, .filter-btn:hover {
-    background: var(--gradient-main);
     color: var(--color-bg);
     border-color: transparent;
 }
